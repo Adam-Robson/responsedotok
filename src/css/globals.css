@@ -1,0 +1,137 @@
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./colors.css";
+@import "./defaults.css";
+@plugin "@tailwindcss/typography";
+
+/*
+  Global styles: tokens and rules that apply across the whole project.
+  Element baselines live in defaults.css; colors in colors.css; fonts in fonts.css.
+*/
+
+/* ---- Breakpoints (Tailwind utilities + hand-written @media agree) -------- */
+/* sm = 30rem (480px), md = 52rem (832px). Use these literals in @media. */
+@theme {
+  --breakpoint-sm: 30rem;
+  --breakpoint-md: 52rem;
+}
+
+/* ---- Layout tokens --------------------------------------------------------- */
+:root {
+  --step--1: 0.85rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.333rem;
+  --step-2: 1.777rem;
+  --step-3: 2.369rem;
+
+  --measure: 64ch; /* comfortable line length */
+  --page: 72rem; /* max page width */
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --radius: 6px;
+}
+
+/* ---- Page ------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Default link color for links inside running text. */
+:where(p, li, dd, blockquote) a {
+  color: var(--link);
+  text-decoration: underline;
+}
+
+:where(p, li, dd, blockquote) a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline-color: var(--link);
+}
+
+/* README / long-form content rendered with `prose` */
+.prose {
+  --tw-prose-body: var(--fg);
+  --tw-prose-headings: var(--fg);
+  --tw-prose-lead: var(--fg-alt);
+  --tw-prose-links: var(--link);
+  --tw-prose-bold: var(--fg);
+  --tw-prose-counters: var(--fg-muted);
+  --tw-prose-bullets: var(--fg-muted);
+  --tw-prose-hr: var(--line);
+  --tw-prose-quotes: var(--fg-alt);
+  --tw-prose-quote-borders: var(--line);
+  --tw-prose-captions: var(--fg-muted);
+  --tw-prose-code: var(--fg);
+  --tw-prose-pre-code: var(--fg);
+  --tw-prose-pre-bg: var(--bg-alt);
+  --tw-prose-th-borders: var(--line);
+  --tw-prose-td-borders: var(--line);
+}
+
+/* ---- Utilities -------------------------------------------------------------- */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: var(--gutter);
+  top: -3rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--fg);
+  color: var(--bg);
+  border-radius: var(--radius);
+  z-index: 10;
+}
+
+.skip:focus {
+  top: 0.75rem;
+}
+
+/* ---- Responsive ------------------------------------------------------------- */
+@media (max-width: 52rem) {
+  h1 {
+    font-size: var(--step-3);
+  }
+
+  h2 {
+    font-size: var(--step-2);
+  }
+}
+
+/* ---- Motion and print ------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media print {
+  :root {
+    --bg: #fff;
+    --fg: #000;
+    --link: #000;
+  }
+
+  .skip {
+    display: none;
+  }
+}
