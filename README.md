@@ -1,37 +1,26 @@
-# Responsedotok
+# RESPONSEDOTOK
 
-This project was bootstrapped with [Next.js](https://nextjs.org).
+A presentation layer for displaying and sharing development projects: a single page that lists hand-picked projects, with a page per project showing its live site (where it can be embedded) and its rendered GitHub README.
 
-## Local Development
+Built with Next.js 16 (App Router, Turbopack), Tailwind CSS v4, Biome and Vitest. Deployed on Vercel.
 
-First, run the development server:
+## Scripts
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server at <http://localhost:3000> |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+| `npm run lint` | Biome lint + format check |
+| `npm run format` | Biome format (writes) |
+| `npm test` | Run the Vitest suite once |
+| `npm run test:watch` | Vitest in watch mode |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Styles
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+All stylesheets live in `src/css/`:
 
-## Learn More
-
-To learn more about Next.js:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js)!
-
-## Deployed on Vercel
-
-This project is deployed on the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying)
-for more details.
+- `globals.css`: entry point (imported by the root layout); project-wide tokens, breakpoints, utilities.
+- `fonts.css`: self-hosted Karla (body) and Bitter (headings), in `src/fonts/`.
+- `colors.css`: palette, light/dark role tokens, Tailwind color mapping. Contrast is enforced by `src/test/contrast.test.ts`.
+- `defaults.css`: baseline styles for bare HTML elements.
