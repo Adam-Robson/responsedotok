@@ -3,14 +3,16 @@
   1. Raw palette: named colors. Changed values keep their original in a comment.
   2. Role tokens: what the UI uses (--bg, --fg, --link…). Dark is the default;
      light overrides under prefers-color-scheme.
-  3. Tailwind mapping: @theme inline exposes roles as utilities (bg-bg, text-fg…).
+  3. Tailwind mapping: @theme inline exposes roles as utilities
+     (bg-bg, text-fg…).
 
-  Contrast (WCAG 2.2 AA) is enforced by src/test/contrast.test.ts.
-  --rosy-copper is decorative only (gradients, borders, display text >=24px);
+  Contrast (WCAG 2.2 AA) is enforced by test/css/palette-contrast.test.ts.
+  --rosy-copper is decorative only (gradients, borders, display text at
+  1.5rem and up);
   use --rosy-copper-text / --link for links and body-size text.
 */
 
-/* ---- 1. Raw palette ---------------------------------------------------- */
+/* ---- 1. Raw palette ------------------------------------------------------ */
 :root {
   --background: hsla(210, 8%, 13%, 1);
   --background-alt: hsla(195, 4%, 22%, 1);
@@ -21,7 +23,7 @@
   --cool-steel: hsla(206, 7%, 63.5%, 1);
   /* original: hsla(206, 16%, 63%, 1) #92a3b0 (4.46:1 on background-alt) */
   --cool-steel-2: hsla(206, 16%, 63.5%, 1);
-  /* decorative only: gradients, borders, display text >= 24px */
+  /* decorative only: gradients, borders, display text at 1.5rem and up */
   --rosy-copper: hsla(6, 52%, 53%, 1);
   --vanilla-custard: hsla(62, 75%, 80%, 1);
 
@@ -138,7 +140,7 @@
   }
 }
 
-/* ---- 3. Tailwind mapping --------------------------------------------------- */
+/* ---- 3. Tailwind mapping ------------------------------------------------- */
 @theme inline {
   --color-bg: var(--bg);
   --color-bg-alt: var(--bg-alt);

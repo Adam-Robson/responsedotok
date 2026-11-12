@@ -35,10 +35,25 @@
   font-display: swap;
 }
 
-/* TODO: mono family pending; add its @font-face here and prepend it to --font-mono. */
+@font-face {
+  font-family: "Atkinson Hyperlegible Mono";
+  src: url("../fonts/Atkinson/AtkinsonMono-Variable.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Mono";
+  src: url("../fonts/Atkinson/AtkinsonMono-Italic-Variable.woff2")
+    format("woff2");
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
 
 @theme inline {
   --font-sans: "Karla", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Bitter", ui-serif, Georgia, serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-mono: "Atkinson Hyperlegible Mono", ui-monospace, Menlo, monospace;
 }

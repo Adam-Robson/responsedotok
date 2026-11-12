@@ -6,17 +6,18 @@
 
 /*
   Global styles: tokens and rules that apply across the whole project.
-  Element baselines live in defaults.css; colors in colors.css; fonts in fonts.css.
+  Element baselines live in defaults.css, colors in colors.css and
+  fonts in fonts.css.
 */
 
 /* ---- Breakpoints (Tailwind utilities + hand-written @media agree) -------- */
-/* sm = 30rem (480px), md = 52rem (832px). Use these literals in @media. */
+/* sm = 30rem, md = 52rem. Use these literals in hand-written @media. */
 @theme {
   --breakpoint-sm: 30rem;
   --breakpoint-md: 52rem;
 }
 
-/* ---- Layout tokens --------------------------------------------------------- */
+/* ---- Layout tokens ------------------------------------------------------- */
 :root {
   --step--1: 0.85rem;
   --step-0: 1.0625rem;
@@ -27,10 +28,10 @@
   --measure: 64ch; /* comfortable line length */
   --page: 72rem; /* max page width */
   --gutter: clamp(1rem, 4vw, 3rem);
-  --radius: 6px;
+  --radius: 0.375rem;
 }
 
-/* ---- Page ------------------------------------------------------------------- */
+/* ---- Page ---------------------------------------------------------------- */
 html {
   scroll-behavior: smooth;
 }
@@ -54,7 +55,7 @@ body {
 }
 
 :where(p, li, dd, blockquote) a:hover {
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 0.125rem;
 }
 
 :focus-visible {
@@ -81,11 +82,11 @@ body {
   --tw-prose-td-borders: var(--line);
 }
 
-/* ---- Utilities -------------------------------------------------------------- */
+/* ---- Utilities ----------------------------------------------------------- */
 .visually-hidden {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0.0625rem;
+  height: 0.0625rem;
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
@@ -106,7 +107,7 @@ body {
   top: 0.75rem;
 }
 
-/* ---- Responsive ------------------------------------------------------------- */
+/* ---- Responsive ---------------------------------------------------------- */
 @media (max-width: 52rem) {
   h1 {
     font-size: var(--step-3);
@@ -117,7 +118,7 @@ body {
   }
 }
 
-/* ---- Motion and print ------------------------------------------------------- */
+/* ---- Motion and print ---------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
