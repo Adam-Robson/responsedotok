@@ -1,1 +1,0 @@
-export type Session = { token: string; expiresAt: Date };
