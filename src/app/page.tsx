@@ -1,18 +1,21 @@
-export default function Home() {
+import { loadProjects } from '@/api/projects/load-projects';
+import { ProjectList } from '@/components/projects/project-list';
+import { SITE_NAME } from '@/lib/constants/site-name';
+
+export default async function Home() {
+  const projects = await loadProjects();
+
   return (
     <main
       id="main"
-      className="mx-auto w-full max-w-[var(--page)] px-[var(--gutter)] py-16"
+      className="mx-auto w-full max-w-(--page) px-(--gutter) py-16"
     >
-      <h1>responsedotok</h1>
-      <p className="max-w-[var(--measure)] text-fg-alt">
-        A presentation layer for displaying and sharing development projects.
-        The project list is coming soon.
+      <h1>{SITE_NAME}</h1>
+      <p className="max-w-(--measure) text-fg-alt">
+        Things I have built: sites, libraries, servers and templates. Each links
+        to its live version where there is one, and to its source.
       </p>
-      <p className="text-fg-muted">
-        Placeholder page. See{' '}
-        <a href="https://github.com/Adam-Robson">GitHub</a> in the meantime.
-      </p>
+      <ProjectList projects={projects} />
     </main>
   );
 }
