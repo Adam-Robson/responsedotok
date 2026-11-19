@@ -11,8 +11,6 @@ export const PROJECTS: readonly ProjectEntry[] = [
   {
     repo: 'teleprompter',
     kind: 'tool',
-    // TODO(Adam): GitHub has no description for this repo; replace this.
-    blurb: 'A teleprompter app written in C#.',
   },
   { repo: 'webpackts', kind: 'template' },
 ];
