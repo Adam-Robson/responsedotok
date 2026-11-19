@@ -33,6 +33,10 @@ All stylesheets live in `src/css/`:
 
 CSS keeps relative `@import`/`url()` paths: Tailwind's CSS loader does not resolve the `@/` alias. TypeScript modules always use `@/` (src) or `@test/` (test).
 
+## Lint exceptions
+
+`biome.json` turns off `security/noDangerouslySetInnerHtml` for one file only, `src/components/projects/project-readme.tsx`. The README HTML it injects comes from GitHub's renderer, which sanitizes it, and only for repos listed in the config. Every other file keeps the rule.
+
 ## Layout
 
 Code follows the folder conventions in `CLAUDE.md`: `api/` (cached data loaders), `clients/` (GitHub HTTP), `config/` (env), `lib/{types,constants,models,protocols}`, `services/` (domain logic), `utils/` (helpers). Tests live in `test/`, mirroring `src/`. Plans live in `docs/`.

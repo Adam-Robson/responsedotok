@@ -69,6 +69,16 @@
           }
         }
       }
+    },
+    {
+      "includes": ["src/components/projects/project-readme.tsx"],
+      "linter": {
+        "rules": {
+          "security": {
+            "noDangerouslySetInnerHtml": "off"
+          }
+        }
+      }
     }
   ]
 }
