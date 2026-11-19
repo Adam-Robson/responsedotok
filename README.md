@@ -1,37 +1,42 @@
-# Responsedotok
+# RESPONSEDOTOK
 
-This project was bootstrapped with [Next.js](https://nextjs.org).
+A presentation layer for displaying and sharing development projects: a single page that lists hand-picked projects, with a page per project showing its live site (where it can be embedded) and its rendered GitHub README.
 
-## Local Development
+Built with Next.js 16 (App Router, Turbopack), Tailwind CSS v4, Biome and Vitest. Deployed on Vercel.
 
-First, run the development server:
+## Scripts
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the dev server at <http://localhost:3000> |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+| `npm run lint` | Biome lint + format check |
+| `npm run format` | Biome format (writes) |
+| `npm test` | Run the Vitest suite once |
+| `npm run test:watch` | Vitest in watch mode |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Projects and GitHub data
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The project list lives in `src/content/projects.ts` (array order is display order). Each entry is merged with live data from the GitHub API (`src/lib/github/`): description, homepage, language, topics, and the rendered README. Config values win over GitHub's. If GitHub is unreachable or a repo is renamed, the page falls back to config-only content.
 
-## Learn More
+Set `GITHUB_TOKEN` (a fine-grained token with public read access is enough) in `.env.local` and in Vercel to avoid the 60-requests-per-hour anonymous limit. Results are cached for about an hour.
 
-To learn more about Next.js:
+## Styles
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All stylesheets live in `src/css/`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js)!
+- `globals.css`: entry point (imported by the root layout); project-wide tokens, breakpoints, utilities.
+- `fonts.css`: self-hosted Karla (body), Bitter (headings) and Atkinson Hyperlegible Mono (code), in `src/fonts/`.
+- `colors.css`: palette, light/dark role tokens, Tailwind color mapping. Contrast is enforced by `test/css/palette-contrast.test.ts`.
+- `defaults.css`: baseline styles for bare HTML elements.
 
-## Deployed on Vercel
+CSS keeps relative `@import`/`url()` paths: Tailwind's CSS loader does not resolve the `@/` alias. TypeScript modules always use `@/` (src) or `@test/` (test).
 
-This project is deployed on the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Lint exceptions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying)
-for more details.
+`biome.json` turns off `security/noDangerouslySetInnerHtml` for one file only, `src/components/projects/project-readme.tsx`. The README HTML it injects comes from GitHub's renderer, which sanitizes it, and only for repos listed in the config. Every other file keeps the rule.
+
+## Layout
+
+Code follows the folder conventions in `CLAUDE.md`: `api/` (cached data loaders), `clients/` (GitHub HTTP), `config/` (env), `lib/{types,constants,models,protocols}`, `services/` (domain logic), `utils/` (helpers). Tests live in `test/`, mirroring `src/`. Plans live in `docs/`.

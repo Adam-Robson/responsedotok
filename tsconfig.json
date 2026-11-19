@@ -19,8 +19,16 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "@test/*": ["./test/*"]
+    },
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "next-env.d.ts",

@@ -1,0 +1,155 @@
+/*
+  Color system
+  1. Raw palette: named colors. Changed values keep their original in a comment.
+  2. Role tokens: what the UI uses (--bg, --fg, --link…). Dark is the default;
+     light overrides under prefers-color-scheme.
+  3. Tailwind mapping: @theme inline exposes roles as utilities
+     (bg-bg, text-fg…).
+
+  Contrast (WCAG 2.2 AA) is enforced by test/css/palette-contrast.test.ts.
+  --rosy-copper is decorative only (gradients, borders, display text at
+  1.5rem and up);
+  use --rosy-copper-text / --link for links and body-size text.
+*/
+
+/* ---- 1. Raw palette ------------------------------------------------------ */
+:root {
+  --background: hsla(210, 8%, 13%, 1);
+  --background-alt: hsla(195, 4%, 22%, 1);
+  --text: hsla(0, 0%, 97%, 1);
+  --text-alt: hsla(50, 11%, 89%, 1);
+  --charcoal-blue: hsla(229, 14%, 31%, 1);
+  /* original: hsla(206, 7%, 59%, 1) #8f979e (3.94:1 on background-alt) */
+  --cool-steel: hsla(206, 7%, 63.5%, 1);
+  /* original: hsla(206, 16%, 63%, 1) #92a3b0 (4.46:1 on background-alt) */
+  --cool-steel-2: hsla(206, 16%, 63.5%, 1);
+  /* decorative only: gradients, borders, display text at 1.5rem and up */
+  --rosy-copper: hsla(6, 52%, 53%, 1);
+  --vanilla-custard: hsla(62, 75%, 80%, 1);
+
+  /* Added for text use; derived from the colors above by lightness only. */
+  /* new; derived from --rosy-copper, original hsla(6, 52%, 53%, 1) #c55549 */
+  --rosy-copper-text: hsla(6, 52%, 69%, 1);
+  /* new (light theme); derived from --rosy-copper, original #c55549 */
+  --rosy-copper-dark: hsla(6, 52%, 45%, 1);
+  /* new (light theme); derived from --cool-steel, original #8f979e */
+  --cool-steel-dark: hsla(206, 7%, 40%, 1);
+
+  /* Gradients (decorative; built from the original hex values). */
+  --gradient-top: linear-gradient(
+    0deg,
+    #45495bff,
+    #90989eff,
+    #92a3b0ff,
+    #c55347ff,
+    #f0f2a6ff
+  );
+  --gradient-right: linear-gradient(
+    90deg,
+    #45495bff,
+    #90989eff,
+    #92a3b0ff,
+    #c55347ff,
+    #f0f2a6ff
+  );
+  --gradient-bottom: linear-gradient(
+    180deg,
+    #45495bff,
+    #90989eff,
+    #92a3b0ff,
+    #c55347ff,
+    #f0f2a6ff
+  );
+  --gradient-left: linear-gradient(
+    270deg,
+    #45495bff,
+    #90989eff,
+    #92a3b0ff,
+    #c55347ff,
+    #f0f2a6ff
+  );
+  --gradient-top-right: linear-gradient(
+    45deg,
+    #45495bff,
+    #90989eff,
+    #92a3b0ff,
+    #c55347ff,
+    #f0f2a6ff
+  );
+  --gradient-bottom-right: linear-gradient(
+    135deg,
+    #45495bff,
+    #90989eff,
+    #92a3b0ff,
+    #c55347ff,
+    #f0f2a6ff
+  );
+  --gradient-top-left: linear-gradient(
+    225deg,
+    #45495bff,
+    #90989eff,
+    #92a3b0ff,
+    #c55347ff,
+    #f0f2a6ff
+  );
+  --gradient-bottom-left: linear-gradient(
+    315deg,
+    #45495bff,
+    #90989eff,
+    #92a3b0ff,
+    #c55347ff,
+    #f0f2a6ff
+  );
+  --gradient-radial: radial-gradient(
+    #45495bff,
+    #90989eff,
+    #92a3b0ff,
+    #c55347ff,
+    #f0f2a6ff
+  );
+}
+
+/* ---- 2. Role tokens (dark default) --------------------------------------- */
+:root {
+  color-scheme: light dark;
+
+  --bg: var(--background);
+  --bg-alt: var(--background-alt);
+  --fg: var(--text);
+  --fg-alt: var(--text-alt);
+  --fg-muted: var(--cool-steel);
+  --link: var(--rosy-copper-text);
+  --accent: var(--vanilla-custard);
+  --line: var(--cool-steel-2);
+  --surface: var(--charcoal-blue); /* fills only; never a text color */
+  --decor: var(--rosy-copper); /* large text / borders / gradients only */
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: var(--text);
+    --bg-alt: var(--text-alt);
+    --fg: var(--background);
+    --fg-alt: var(--background-alt);
+    --fg-muted: var(--cool-steel-dark);
+    --link: var(--rosy-copper-dark);
+    --accent: var(--charcoal-blue);
+    --line: var(--cool-steel-dark);
+    --surface: var(--text-alt);
+    --decor: var(--rosy-copper-dark);
+  }
+}
+
+/* ---- 3. Tailwind mapping ------------------------------------------------- */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-fg: var(--fg);
+  --color-fg-alt: var(--fg-alt);
+  --color-fg-muted: var(--fg-muted);
+  --color-link: var(--link);
+  --color-accent: var(--accent);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --color-decor: var(--decor);
+}
